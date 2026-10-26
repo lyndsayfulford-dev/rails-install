@@ -7,14 +7,13 @@ end
 
 gem "rails", "~> 8.1.4"
 gem "propshaft"
-gem "sqlite3", ">= 2.1"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 
- gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -30,15 +29,21 @@ gem "thruster", require: false
 
 gem "image_processing", "~> 1.2"
 
+# --- DATABASE BOUNDARY FOR HEROKU DEPLOYMENT ---
+group :development, :test do
+  gem "sqlite3", ">= 2.1" # Keeps your local development working seamlessly
+end
+
+group :production do
+  gem "pg" # Tells Heroku to use PostgreSQL in the cloud
+end
+# -----------------------------------------------
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
   gem "bundler-audit", require: false
-
   gem "brakeman", require: false
-
-
-  end
+end
 
 group :development do
   gem "web-console"
